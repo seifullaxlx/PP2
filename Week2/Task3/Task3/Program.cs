@@ -17,7 +17,7 @@ namespace Task3
             }
         }
 
-        static void task(DirectoryInfo directory, int spaces)
+        static void Task(DirectoryInfo directory, int spaces)
         {
             FileInfo[] files = directory.GetFiles();
             DirectoryInfo[] directories = directory.GetDirectories();
@@ -32,14 +32,14 @@ namespace Task3
             {
                 Printspaces(spaces);
                 Console.WriteLine(d.Name);
-                task(d, spaces + 1);
+                Task(d, spaces + 1);
             }
         }
 
         static void Main(string[] args)
         {
             DirectoryInfo d = new DirectoryInfo(@"C:\Users\user\Desktop\lol");
-            task(d, 1);
+            Task(d, 1);
         }
     }
 }
