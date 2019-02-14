@@ -15,9 +15,9 @@ namespace ConsoleApp1
             {
                 check = false;
             }
-            for(int i = 2; i < a; ++i)
+            for (int i = 2; i < a; ++i)
             {
-                if(a % i == 0)
+                if (a % i == 0)
                 {
                     check = false;
                 }
@@ -27,21 +27,17 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             int n = int.Parse(Console.ReadLine()); // задаю количество элементов в массиве
-            int[] arr = new int[n]; // создаю сам массив
-            
-            for(int i = 1; i <= n; ++i) // заполняю массив
-            {
-                arr[i - 1] = i;
-            }
+            string s = Console.ReadLine();
+            string[] arr = s.Split(); //создаю массив
 
             int cnt = 0; // создаю счетчик для подсчета простых чисел
             int[] arr2 = new int[n]; // создаю второй массив для заполнения его простыми числами из первого массива
 
-            for(int i = 0; i < n; ++i) //пробегаюсь по первому массиву определяя из него простые числа и закидываю их во второй массив
+            for (int i = 0; i < n; ++i) //пробегаюсь по первому массиву определяя из него простые числа и закидываю их во второй массив
             {
-                if (Prime(arr[i]) == true)
+                if (Prime(int.Parse(arr[i])) == true)
                 {
-                    arr2[cnt] = arr[i];
+                    arr2[cnt] = int.Parse(arr[i]);
                     cnt++;
                 }
             }
@@ -49,11 +45,12 @@ namespace ConsoleApp1
             Console.Write(cnt); // первая строка вывода - количество простых элементов в массиве
             Console.Write(System.Environment.NewLine); // новая строка
 
-            for(int i = 0; i < cnt; ++i) // вывожу простые числа через пробел
+            for (int i = 0; i < cnt; ++i) // вывожу простые числа через пробел
             {
                 Console.Write(arr2[i]);
                 Console.Write(" ");
             }
+
         }
     }
 }
