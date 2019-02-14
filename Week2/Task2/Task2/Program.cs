@@ -9,12 +9,12 @@ namespace Task2
 {
     class Program
     {
-        public static bool isPrime(int a)
+        static bool IsPrime(int x)
         {
-            if (a == 1) return false;
-            for(int i = 2; i < a; ++i)
+            if (x == 1) return false;
+            for(int i = 2; i <= Math.Sqrt(x); ++i)
             {
-                if(a % 2 == 0)
+                if(x % i == 0)
                 {
                     return false;
                 }
@@ -22,26 +22,21 @@ namespace Task2
             return true;
         }
 
-        static void Prime()
-        {
-            StreamReader sr = new StreamReader(@"C:\Users\user\Desktop\input.txt");
-            string[] arr = sr.ReadLine().Split();
-            StreamWriter sw = new StreamWriter(@"C:\Users\user\Desktop\output.txt");
-            int[] arr2 = new int[10000];
-            for(int i = 0; i < arr.Length; ++i)
-            {
-                if (isPrime(int.Parse(arr[i])))
-                {
-                    sw.Write(int.Parse(arr[i]) + " ");
-                }
-            }
-            sr.Close();
-            sw.Close();
-        }
-
         static void Main(string[] args)
         {
-            Prime();
+            StreamReader sr = new StreamReader(@"C:\Users\user\Desktop\lol\input.txt");
+            string[] s = sr.ReadToEnd().Split();
+            sr.Close();
+            StreamWriter sw = new StreamWriter(@"C:\Users\user\Desktop\lol\output.txt");
+            foreach(string a in s)
+            {
+                int b = int.Parse(a);
+                if (IsPrime(b))
+                {
+                    sw.Write(b + " ");
+                }
+            }
+            sw.Close();
         }
     }
 }
