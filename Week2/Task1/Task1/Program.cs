@@ -1,71 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
-namespace Example2
+namespace Task1
 {
     class Program
     {
+        public static bool Palindrome(string s)
+        {
+            for(int i = 0; i < s.Length; ++i)
+            {
+                if(s[i] != s[s.Length - i - 1])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         static void Main(string[] args)
         {
-            F4();
-        }
-
-
-        private static void PrintInfo(FileSystemInfo[] x, ConsoleColor c)
-        {
-            Console.ForegroundColor = c;
-            foreach (var t in x)
+            StreamReader sr = new StreamReader(@"C:\Users\user\Desktop\palindrome.txt");
+            string s = sr.ReadLine();
+            sr.Close();
+            if(Palindrome(s))
             {
-                Console.WriteLine(t.Name);
+                Console.WriteLine("Yes");
             }
-        }
-
-        private static void F4()
-        {
-            DirectoryInfo dirInfo = new DirectoryInfo(@"C:\test");
-            PrintInfo(dirInfo.GetDirectories(), ConsoleColor.White);
-            PrintInfo(dirInfo.GetFiles(), ConsoleColor.Yellow);
-        }
-
-        private static void F3()
-        {
-            DirectoryInfo dirInfo = new DirectoryInfo(@"C:\test");
-            var x = dirInfo.GetFileSystemInfos();
-            foreach (var t in x)
+            else
             {
-                if (t.GetType() == typeof(DirectoryInfo))
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                }
-                Console.WriteLine(t.Name);
-            }
-        }
-
-        private static void F2()
-        {
-            DirectoryInfo dirInfo = new DirectoryInfo(@"C:\test");
-            var x = dirInfo.GetFileSystemInfos();
-            foreach(var t in x)
-            {
-                Console.WriteLine(t.Name);
-            }
-        }
-
-        private static void F1()
-        {
-            DirectoryInfo dirInfo = new DirectoryInfo(@"C:\test");
-            FileSystemInfo[] x = dirInfo.GetFileSystemInfos();
-            for (int i = 0; i < x.Length; ++i)
-            {
-                Console.WriteLine(x[i].Name);
+                Console.WriteLine("No");
             }
         }
     }
