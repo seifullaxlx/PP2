@@ -1,48 +1,54 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Task2
+namespace Task_2
 {
-    class Student
+    class Student     //создаем класс студент
     {
-        public string Name, ID;
-        public int year;
-
-
-        public Student(string Name, string ID)
+        public string Name { get; set; }  //присваиваем и считываем значения свойств с помощью аксессоров
+        public string Id { get; set; }
+        public int Year { get; set; }
+        
+        public Student ( string Name, string Id) //создаем конструктор с двумя параметрами, принимающий значение имени и айди студента
         {
             this.Name = Name;
-            this.ID = ID;
+            this.Id = Id;
         }
 
+        public void NextYear() //увеличиваем год обучения студента
+        {
+            Year++;
+        }
+
+       
     }
     class Program
     {
         static void Main(string[] args)
         {
-            string t = Console.ReadLine();
-            string[] student = t.Split();
 
-            Student s = new Student(student[0], student[1])
+            Console.WriteLine("Enter your name: "); //принимаем имя, айди и год студента
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter your id: ");
+            string id = Console.ReadLine();
+            Console.WriteLine("Enter your year of study: ");
+            Student student1 = new Student(name, id)
             {
-                year = int.Parse(student[2])
+                Year = int.Parse(Console.ReadLine())
             };
 
-            GetName(s.Name);
-            GetID(s.ID);
-            IncrementYear(s.year);
-
-        }
-        static void GetName(string n)
-        {
-            Console.Write(n + " ");
-        }
-        static void GetID(string id)
-        {
-            Console.Write(id + " ");
-        }
-        static void IncrementYear(int y)
-        {
-            Console.Write(++y + " ");
+            Console.WriteLine("Student: " + student1.Name); //выводим все данные
+            Console.WriteLine("ID: " + student1.Id);
+            Console.WriteLine("Year of sudy: " + student1.Year);
+            student1.NextYear(); //увеличиваем год студента, вызывая функцию
+            Console.WriteLine(); //выводим измененные данные
+            Console.WriteLine("Student has progressed to the next year of study.");
+            Console.WriteLine("Student: " + student1.Name);
+            Console.WriteLine("ID: " + student1.Id);
+            Console.WriteLine("Year of sudy: " + student1.Year);
         }
     }
 }
