@@ -9,43 +9,43 @@ namespace Task1
 {
     class FarManager
     {
-        public int cursor = 0;
+        public int highlight = 0;
         public string path;
-        public int sz;
+        public int size;
         public bool ok;
         DirectoryInfo directory = null;
         FileSystemInfo currentfs = null;
 
         public FarManager()
         {
-            cursor = 0;
+            highlight = 0;
         }
         public FarManager(string path)
         {
             this.path = path;
-            cursor = 0;
+            highlight = 0;
             directory = new DirectoryInfo(path);
-            sz = directory.GetFileSystemInfos().Length;
+            size = directory.GetFileSystemInfos().Length;
             ok = true;
         }
 
         public void Color(FileSystemInfo fs, int index)
         {
-            if (cursor == index)
+            if (highlight == index)
             {
-                Console.BackgroundColor = ConsoleColor.Red;
+                Console.BackgroundColor = ConsoleColor.Magenta;
                 Console.ForegroundColor = ConsoleColor.Gray;
                 currentfs = fs;
             }
             else if (fs.GetType() == typeof(DirectoryInfo))
             {
                 Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Green;
             }
             else
             {
                 Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Cyan;
             }
         }
         public void Show()
@@ -53,9 +53,7 @@ namespace Task1
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Clear();
-            Console.WriteLine(" File Explorer: {0} ", path);
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("Open -- Enter | Delete -- Del | Rename -- R | Back -- Bakcspace | Exit -- Escape");
             directory = new DirectoryInfo(path);
             FileSystemInfo[] fs = directory.GetFileSystemInfos();
             DirectoryInfo[] di = directory.GetDirectories();
@@ -83,25 +81,15 @@ namespace Task1
         }
         public void Up()
         {
-            cursor--;
-            if (cursor < 0)
-                cursor = sz - 1;
+            highlight--;
+            if (highlight < 0)
+                highlight = size - 1;
         }
         public void Down()
         {
-            cursor++;
-            if (cursor == sz)
-                cursor = 0;
-        }
-        public void CalcSz()
-        {
-            directory = new DirectoryInfo(path);
-            FileSystemInfo[] fs = directory.GetFileSystemInfos();
-            sz = fs.Length;
-            if (ok == false)
-                for (int i = 0; i < fs.Length; i++)
-                    if (fs[i].Name[0] == '.')
-                        sz--;
+            highlight++;
+            if (highlight == size)
+                highlight = 0;
         }
 
         public void Start()
@@ -109,7 +97,6 @@ namespace Task1
             ConsoleKeyInfo consoleKey = Console.ReadKey();
             while (consoleKey.Key != ConsoleKey.Escape)
             {
-                CalcSz();
                 Show();
                 consoleKey = Console.ReadKey();
                 if (consoleKey.Key == ConsoleKey.UpArrow)
@@ -119,18 +106,18 @@ namespace Task1
                 if (consoleKey.Key == ConsoleKey.RightArrow)
                 {
                     ok = false;
-                    cursor = 0;
+                    highlight = 0;
                 }
                 if (consoleKey.Key == ConsoleKey.LeftArrow)
                 {
-                    cursor = 0;
+                    highlight = 0;
                     ok = true;
                 }
                 if (consoleKey.Key == ConsoleKey.Enter)
                 {
                     if (currentfs.GetType() == typeof(DirectoryInfo))
                     {
-                        cursor = 0;
+                        highlight = 0;
                         path = currentfs.FullName;
                     }
                     else
@@ -146,7 +133,7 @@ namespace Task1
                 }
                 if (consoleKey.Key == ConsoleKey.Backspace)
                 {
-                    cursor = 0;
+                    highlight = 0;
                     path = directory.Parent.FullName;
                 }
                 if (consoleKey.Key == ConsoleKey.Delete)
@@ -173,6 +160,7 @@ namespace Task1
 
                     if (currentfs.GetType() == typeof(FileInfo))
                     {
+
                         string sourcefile = currentfs.FullName;
                         int ind = 0;
                         string formFile = null;
